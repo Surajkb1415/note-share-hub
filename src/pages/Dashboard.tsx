@@ -4,7 +4,7 @@ import { useAuth } from '@/contexts/AuthContext';
 import { supabase } from '@/integrations/supabase/client';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { PlusCircle, BookOpen, Clock, LogOut, FileText } from 'lucide-react';
+import { PlusCircle, BookOpen, Clock, FileText } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 
 interface Note {
@@ -17,10 +17,9 @@ interface Note {
 }
 
 const Dashboard = () => {
-  const { user, signOut, loading } = useAuth();
+  const { user, loading } = useAuth();
   const [notes, setNotes] = useState<Note[]>([]);
   const [notesLoading, setNotesLoading] = useState(true);
-  const [username, setUsername] = useState('');
   const navigate = useNavigate();
   const { toast } = useToast();
 
@@ -32,22 +31,9 @@ const Dashboard = () => {
 
   useEffect(() => {
     if (user) {
-      fetchUserProfile();
       fetchUserNotes();
     }
   }, [user]);
-
-  const fetchUserProfile = async () => {
-    const { data, error } = await supabase
-      .from('profiles')
-      .select('username')
-      .eq('id', user?.id)
-      .single();
-
-    if (data) {
-      setUsername(data.username);
-    }
-  };
 
   const fetchUserNotes = async () => {
     setNotesLoading(true);
@@ -69,35 +55,12 @@ const Dashboard = () => {
     setNotesLoading(false);
   };
 
-  const handleSignOut = async () => {
-    await signOut();
-    navigate('/');
-  };
-
   if (loading || !user) {
     return null;
   }
 
   return (
     <div className="min-h-screen bg-gradient-subtle">
-      <header className="border-b bg-card/80 backdrop-blur-sm sticky top-0 z-10">
-        <div className="container mx-auto px-4 py-4 flex items-center justify-between">
-          <Link to="/dashboard" className="flex items-center gap-2">
-            <div className="w-8 h-8 bg-gradient-primary rounded-lg flex items-center justify-center">
-              <BookOpen className="w-5 h-5 text-primary-foreground" />
-            </div>
-            <span className="font-semibold text-lg">NoteShare</span>
-          </Link>
-          <div className="flex items-center gap-4">
-            <span className="text-sm text-muted-foreground">Hello, {username}!</span>
-            <Button variant="outline" size="sm" onClick={handleSignOut}>
-              <LogOut className="w-4 h-4 mr-2" />
-              Logout
-            </Button>
-          </div>
-        </div>
-      </header>
-
       <main className="container mx-auto px-4 py-8">
         <div className="flex items-center justify-between mb-8">
           <div>

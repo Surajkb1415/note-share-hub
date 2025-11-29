@@ -20,25 +20,6 @@ const Index = () => {
 
   return (
     <div className="min-h-screen bg-gradient-subtle">
-      <header className="border-b bg-card/80 backdrop-blur-sm">
-        <div className="container mx-auto px-4 py-4 flex items-center justify-between">
-          <div className="flex items-center gap-2">
-            <div className="w-10 h-10 bg-gradient-primary rounded-xl flex items-center justify-center">
-              <BookOpen className="w-6 h-6 text-primary-foreground" />
-            </div>
-            <span className="font-bold text-xl">NoteShare</span>
-          </div>
-          <div className="flex gap-3">
-            <Button variant="outline" asChild>
-              <Link to="/login">Login</Link>
-            </Button>
-            <Button asChild>
-              <Link to="/register">Register</Link>
-            </Button>
-          </div>
-        </div>
-      </header>
-
       <main>
         <section className="container mx-auto px-4 py-20 text-center">
           <div className="max-w-3xl mx-auto space-y-6">
