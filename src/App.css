@@ -22,16 +22,16 @@
 
 @keyframes logo-spin {
   from {
-    transform: rotate(-20deg);
+    transform: rotate(10deg);
   }
   to {
-    transform: rotate(340deg);
+    transform: rotate(370deg);
   }
 }
 
 @media (prefers-reduced-motion: no-preference) {
   a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 30s ease-in-out;
+    animation: logo-spin infinite 5s linear;
   }
 }
 
